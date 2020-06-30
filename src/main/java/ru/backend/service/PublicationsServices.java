@@ -24,28 +24,27 @@ public class PublicationsServices {
         this.publicationsRepository = publicationsRepository;
     }
 
-    public List<Publications> findAll(){
+    public List<Publications> findAll() {
         return publicationsRepository.findAll();
     }
 
-    public List<Publications> findPublicationsById(Long id){
+    public List<Publications> findPublicationsById(Long id) {
         return publicationsRepository.findPublicationsById(id);
     }
 
-    public List<Publications> findPublicationsByUser(User id){
-        return publicationsRepository.findPublicationsByUser(id);
+    public List<Publications> findPublicationsByUser(User user) {
+        return publicationsRepository.findPublicationsByUser(user);
     }
 
-    public List<Publications> findPublicationsTop(){
+    public List<Publications> findPublicationsTop() {
         return publicationsRepository.findPublicationsTop();
     }
 
     @Transactional
-    public Publications save (Publications publications){
-        if (publications.getId() == null){
+    public Publications save(Publications publications) {
+        if (publications.getId() == null) {
             em.persist(publications);
-        }
-        else {
+        } else {
             em.merge(publications);
         }
         return publications;

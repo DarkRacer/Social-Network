@@ -1,11 +1,11 @@
 package ru.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.backend.entity.User;
 import ru.backend.repository.UserRepository;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -26,13 +26,19 @@ public class UserService {
     }
 
     @Transactional
-    public User save (User user){
-        if (user.getId() == null){
+    public User save(User user) {
+        if (user.getId() == null) {
             em.persist(user);
-        }
-        else {
+        } else {
             em.merge(user);
         }
         return user;
+    }
+
+    @Transactional
+    public void subscribe(@Param("id_subscriber") Long id_subscriber, @Param("id_speaker") Long id_speaker) {
+        userRepository.subscribe(id_subscriber, id_speaker);
+        userRepository.updateSubscribers(id_speaker);
+        userRepository.updateSubscriptions(id_subscriber);
     }
 }

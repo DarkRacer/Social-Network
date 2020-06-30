@@ -1,30 +1,27 @@
 package ru.backend.entity;
 
-import jdk.nashorn.internal.objects.annotations.Constructor;
 import lombok.*;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 @Entity
 @Table(name = "likes", schema = "public")
 @NoArgsConstructor
+@Getter
+@Setter
 public class Likes {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "publication_id")
-    @Getter
-    @Setter
-    private Set<Publications> publication = new TreeSet<>();
+    @JoinTable(name = "likes", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "publication_id"))
+    private Set<Publications> publications = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    @Getter
-    @Setter
-    private Set<User> user = new TreeSet<>();
+    @JoinTable(name = "likes", joinColumns = @JoinColumn(name = "publication_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<UserClass> user = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
     private Long id;
 }

@@ -1,24 +1,21 @@
 package ru.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.backend.entity.Likes;
-import ru.backend.entity.Publications;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import ru.backend.entity.UserClass;
 import ru.backend.service.LikesServices;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/likes")
+@RequestMapping("/publications")
 public class LikesController {
     @Autowired
     private LikesServices likesServices;
 
-    @GetMapping("/publications/{id}")
-    public List<Likes> findLikesByPublication(@PathVariable Publications id){
-        return likesServices.findLikesByPublication(id);
+    @PostMapping("/{id}/like")
+    @ResponseStatus(HttpStatus.OK)
+    public void save(@PathVariable Long id, @RequestBody @Param("idU") UserClass user) {
+        likesServices.save(id, user.getId());
     }
 }
