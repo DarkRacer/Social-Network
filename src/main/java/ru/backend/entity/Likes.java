@@ -19,7 +19,7 @@ public class Likes {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "likes", joinColumns = @JoinColumn(name = "publication_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<UserClass> user = new HashSet<>();
+    private Set<User> user = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

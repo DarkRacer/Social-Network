@@ -1,7 +1,6 @@
 package ru.backend.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
@@ -38,10 +37,13 @@ public class User {
     @ManyToMany
     @JoinTable(name = "subscriptions", joinColumns = @JoinColumn(name = "speaker_id"),
             inverseJoinColumns = @JoinColumn(name = "subscriber_id"))
-    private Set<UserClass> subscriber = new HashSet<>();
+    private Set<User> subscriber = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "subscriptions", joinColumns = @JoinColumn(name = "subscriber_id"),
             inverseJoinColumns = @JoinColumn(name = "speaker_id"))
-    private Set<UserClass> subscription = new HashSet<>();
+    private Set<User> subscription = new HashSet<>();
+
+    @Column
+    private String picture;
 }
