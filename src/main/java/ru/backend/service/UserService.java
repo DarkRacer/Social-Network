@@ -78,24 +78,26 @@ public class UserService {
     @Transactional
     public void updatePicture(@Param("id") Long id, MultipartFile multipartFile) throws IOException, UnprocessableEntity {
         String fileFormat = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+        String UUIDString = "";
 
         for (ImageFormat format : ImageFormat.values()) {
             if (format.getFormat().equals(fileFormat)) {
-
                 UUID uuid = UUID.randomUUID();
-                String UUIDString = uuid.toString() + "." + fileFormat;
-                String patchName = uploadPatch + UUIDString;
-
-                File convFile = new File(patchName);
-                convFile.createNewFile();
-                FileOutputStream fos = new FileOutputStream(convFile);
-                fos.write(multipartFile.getBytes());
-                fos.close();
-
-                userRepository.updatePicture(id, UUIDString);
-            } else {
-
+                UUIDString = uuid.toString() + "." + fileFormat;
             }
+        }
+
+        if (UUIDString != "") {
+            String patchName = uploadPatch + UUIDString;
+            File convFile = new File(patchName);
+            convFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(multipartFile.getBytes());
+            fos.close();
+
+            userRepository.updatePicture(id, UUIDString);
+        } else {
+            throw new ru.backend.exception.UnprocessableEntity("Неверный формат файла");
         }
     }
 
