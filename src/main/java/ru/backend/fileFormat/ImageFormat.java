@@ -3,9 +3,9 @@ package ru.backend.fileFormat;
 import lombok.Getter;
 
 public enum ImageFormat {
-    png("png"),
-    jpg("jpg"),
-    jpeg("jpeg");
+    Png("png"),
+    Jpg("jpg"),
+    Jpeg("jpeg");
 
     @Getter
     private final String format;

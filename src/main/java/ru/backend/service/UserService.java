@@ -34,7 +34,6 @@ public class UserService {
 
     @PersistenceContext
     private EntityManager em;
-
     @Autowired
     public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, RolesRepository rolesRepository) {
         this.userRepository = userRepository;
@@ -55,7 +54,7 @@ public class UserService {
     @Transactional
     public void save(User user) {
         Role role = rolesRepository.findByName("ROLE_USER");
-        List<Role> userRoles = new ArrayList<>();
+        Set<Role> userRoles = new HashSet<>();
         userRoles.add(role);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
