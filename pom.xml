@@ -20,7 +20,7 @@
         <mapstruct>1.3.1.Final</mapstruct>
         <mapstruct-processor>1.3.1.Final</mapstruct-processor>
         <spring-boot-starter-security>2.3.1.RELEASE</spring-boot-starter-security>
-        <spring-security-core>5.3.3.RELEASE</spring-security-core>
+        <spring-security-core>5.3.10.RELEASE</spring-security-core>
     </properties>
 
     <parent>
